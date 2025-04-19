@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Learning Roadmaps</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --success: #00b894;
+            --info: #0984e3;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            transform: rotate(30deg);
+            animation: shine 8s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-10%, -10%); }
+            100% { transform: rotate(30deg) translate(10%, 10%); }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        #search {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        #search:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .tech-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .tech-icon {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .web-dev { background: linear-gradient(135deg, #4a69bd, #1e3799); }
+        .ai-ml { background: linear-gradient(135deg, #e55039, #eb2f06); }
+        .devops { background: linear-gradient(135deg, #3c6382, #0a3d62); }
+        .java { background: linear-gradient(135deg, #f6b93b, #e58e26); }
+        .python { background: linear-gradient(135deg, #4b7bec, #3867d6); }
+        .data-science { background: linear-gradient(135deg, #00cec9, #0984e3); }
+        .cpp { background: linear-gradient(135deg, #8e44ad, #6c5ce7); }
+        .c { background: linear-gradient(135deg, #2c3e50, #34495e); }
+        .csharp { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .sql { background: linear-gradient(135deg, #f39c12, #d35400); }
+        .os { background: linear-gradient(135deg, #7f8c8d, #95a5a6); }
+        .ui-ux { background: linear-gradient(135deg, #fd79a8, #e84393); }
+        .graphics { background: linear-gradient(135deg, #00b894, #55efc4); }
+
+        .tech-info {
+            padding: 20px;
+        }
+
+        .tech-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .tech-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: var(--primary);
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .roadmap-container {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .roadmap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .back-btn {
+            background: var(--light);
+            color: var(--dark);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #ddd;
+        }
+
+        .back-btn:hover {
+            background: #eee;
+        }
+
+        .roadmap-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .step ul {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .step li {
+            margin-bottom: 5px;
+        }
+
+        .resources {
+            margin-top: 20px;
+        }
+
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            background: white;
+            transform: translateX(5px);
+        }
+
+        .resource-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .resource-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .resource-info a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .resource-info a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .tech-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tech Learning Roadmaps</h1>
+            <p class="tagline">Your guide to mastering modern technologies</p>
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search technologies...">
+            </div>
+        </header>
+
+        <div class="no-results" id="noResults">
+            <h3>No technologies found</h3>
+            <p>Try searching for something else</p>
+        </div>
+
+        <div class="tech-grid" id="techGrid">
+            <!-- Web Development -->
+            <div class="tech-card" data-tech="web-dev">
+                <div class="tech-icon web-dev">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>Web Development</h3>
+                    <p>Learn to build modern websites and web applications</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- AI/ML -->
+            <div class="tech-card" data-tech="ai-ml">
+                <div class="tech-icon ai-ml">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>AI/ML</h3>
+                    <p>Master Artificial Intelligence and Machine Learning</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- DevOps -->
+            <div class="tech-card" data-tech="devops">
+                <div class="tech-icon devops">
+                    <i class="fas fa-server"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>DevOps</h3>
+                    <p>Learn deployment, automation, and infrastructure</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- Java -->
+            <div class="tech-card" data-tech="java">
+                <div class="tech-icon java">
+                    <i class="fab fa-java"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>Java</h3>
+                    <p>Learn Java programming and frameworks</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- Python -->
+            <div class="tech-card" data-tech="python">
+                <div class="tech-icon python">
+                    <i class="fab fa-python"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>Python</h3>
+                    <p>Master Python programming and its applications</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- Data Science -->
+            <div class="tech-card" data-tech="data-science">
+                <div class="tech-icon data-science">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>Data Science</h3>
+                    <p>Learn data analysis, visualization, and modeling</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- C++ -->
+            <div class="tech-card" data-tech="cpp">
+                <div class="tech-icon cpp">
+                    <i class="fas fa-file-code"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>C++</h3>
+                    <p>Master C++ programming and system development</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- C -->
+            <div class="tech-card" data-tech="c">
+                <div class="tech-icon c">
+                    <i class="fas fa-copyright"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>C</h3>
+                    <p>Learn the fundamentals of C programming</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- C# -->
+            <div class="tech-card" data-tech="csharp">
+                <div class="tech-icon csharp">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>C#</h3>
+                    <p>Learn C# and .NET development</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- SQL -->
+            <div class="tech-card" data-tech="sql">
+                <div class="tech-icon sql">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>SQL</h3>
+                    <p>Master database design and querying</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- OS -->
+            <div class="tech-card" data-tech="os">
+                <div class="tech-icon os">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>Operating Systems</h3>
+                    <p>Understand how operating systems work</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- UI/UX -->
+            <div class="tech-card" data-tech="ui-ux">
+                <div class="tech-icon ui-ux">
+                    <i class="fas fa-paint-brush"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>UI/UX Design</h3>
+                    <p>Learn user interface and experience design</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+
+            <!-- Graphics Design -->
+            <div class="tech-card" data-tech="graphics">
+                <div class="tech-icon graphics">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="tech-info">
+                    <h3>Graphics Design</h3>
+                    <p>Master visual communication and design</p>
+                    <button class="btn view-roadmap">View Roadmap</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap Container (initially hidden) -->
+        <div class="roadmap-container" id="roadmapContainer">
+            <div class="roadmap-header">
+                <h2 id="roadmapTitle">Roadmap Title</h2>
+                <button class="back-btn" id="backBtn"><i class="fas fa-arrow-left"></i> Back to Technologies</button>
+            </div>
+            
+            <div class="roadmap-steps" id="roadmapSteps">
+                <!-- Steps will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="resources" id="resources">
+                <h3>Recommended Resources</h3>
+                <!-- Resources will be inserted here by JavaScript -->
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Tech Learning Roadmaps. All rights reserved.</p>
+            <p>Made with <i class="fas fa-heart" style="color: var(--danger);"></i> for developers</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const techCards = document.querySelectorAll('.tech-card');
+            const techGrid = document.getElementById('techGrid');
+            const roadmapContainer = document.getElementById('roadmapContainer');
+            const roadmapTitle = document.getElementById('roadmapTitle');
+            const roadmapSteps = document.getElementById('roadmapSteps');
+            const resourcesContainer = document.getElementById('resources');
+            const backBtn = document.getElementById('backBtn');
+            const searchInput = document.getElementById('search');
+            const noResults = document.getElementById('noResults');
+
+            // Roadmap data
+            const roadmaps = {
+                'web-dev': {
+                    title: 'Web Development Roadmap',
+                    steps: [
+                        {
+                            title: 'Fundamentals',
+                            items: [
+                                'Learn HTML5 and semantic markup',
+                                'Master CSS3 including Flexbox and Grid',
+                                'Learn basic JavaScript (ES6+)',
+                                'Understand how the web works (HTTP, DNS, etc.)'
+                            ]
+                        },
+                        {
+                            title: 'Frontend Development',
+                            items: [
+                                'Learn a CSS framework (Bootstrap, Tailwind)',
+                                'Learn a JavaScript framework (React, Vue, or Angular)',
+                                'Understand state management',
+                                'Learn frontend build tools (Webpack, Vite)'
+                            ]
+                        },
+                        {
+                            title: 'Backend Development',
+                            items: [
+                                'Learn a backend language (Node.js, Python, PHP, etc.)',
+                                'Understand databases (SQL and NoSQL)',
+                                'Learn about RESTful APIs',
+                                'Study authentication and security'
+                            ]
+                        },
+                        {
+                            title: 'Advanced Topics',
+                            items: [
+                                'Learn TypeScript',
+                                'Explore GraphQL',
+                                'Study WebSockets for real-time apps',
+                                'Learn about testing (Jest, Cypress)',
+                                'Understand CI/CD pipelines'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'MDN Web Docs',
+                            url: 'https://developer.mozilla.org',
+                            description: 'Comprehensive resource for web technologies'
+                        },
+                        {
+                            title: 'freeCodeCamp',
+                            url: 'https://www.freecodecamp.org',
+                            description: 'Free coding challenges and projects'
+                        },
+                        {
+                            title: 'Frontend Masters',
+                            url: 'https://frontendmasters.com',
+                            description: 'In-depth courses on frontend technologies'
+                        },
+                        {
+                            title: 'The Odin Project',
+                            url: 'https://www.theodinproject.com',
+                            description: 'Full-stack curriculum with projects'
+                        }
+                    ]
+                },
+                'ai-ml': {
+                    title: 'AI/ML Roadmap',
+                    steps: [
+                        {
+                            title: 'Prerequisites',
+                            items: [
+                                'Strong foundation in mathematics (linear algebra, calculus, statistics)',
+                                'Proficiency in Python programming',
+                                'Basic understanding of data structures and algorithms'
+                            ]
+                        },
+                        {
+                            title: 'Machine Learning Fundamentals',
+                            items: [
+                                'Learn supervised and unsupervised learning',
+                                'Understand regression, classification, clustering',
+                                'Study model evaluation metrics',
+                                'Learn about feature engineering'
+                            ]
+                        },
+                        {
+                            title: 'Deep Learning',
+                            items: [
+                                'Study neural networks and backpropagation',
+                                'Learn about CNNs, RNNs, Transformers',
+                                'Understand frameworks like TensorFlow and PyTorch',
+                                'Explore NLP and computer vision'
+                            ]
+                        },
+                        {
+                            title: 'Advanced Topics',
+                            items: [
+                                'Study reinforcement learning',
+                                'Learn about generative models (GANs, VAEs)',
+                                'Explore model deployment and serving',
+                                'Understand MLOps practices'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'Coursera - Machine Learning by Andrew Ng',
+                            url: 'https://www.coursera.org/learn/machine-learning',
+                            description: 'Classic introduction to ML'
+                        },
+                        {
+                            title: 'Fast.ai',
+                            url: 'https://www.fast.ai',
+                            description: 'Practical deep learning courses'
+                        },
+                        {
+                            title: 'Kaggle',
+                            url: 'https://www.kaggle.com',
+                            description: 'Datasets, competitions, and learning resources'
+                        },
+                        {
+                            title: 'Deep Learning Book',
+                            url: 'https://www.deeplearningbook.org',
+                            description: 'Comprehensive textbook on deep learning'
+                        }
+                    ]
+                },
+                'devops': {
+                    title: 'DevOps Roadmap',
+                    steps: [
+                        {
+                            title: 'Fundamentals',
+                            items: [
+                                'Learn Linux and shell scripting',
+                                'Understand networking basics',
+                                'Learn about virtualization',
+                                'Study cloud computing concepts'
+                            ]
+                        },
+                        {
+                            title: 'Infrastructure as Code',
+                            items: [
+                                'Learn configuration management (Ansible, Puppet, Chef)',
+                                'Study infrastructure provisioning (Terraform)',
+                                'Understand containerization (Docker)',
+                                'Learn orchestration (Kubernetes)'
+                            ]
+                        },
+                        {
+                            title: 'CI/CD Pipelines',
+                            items: [
+                                'Learn about version control (Git)',
+                                'Study CI/CD tools (Jenkins, GitHub Actions, GitLab CI)',
+                                'Understand artifact repositories',
+                                'Learn about deployment strategies'
+                            ]
+                        },
+                        {
+                            title: 'Monitoring and Observability',
+                            items: [
+                                'Learn logging (ELK stack)',
+                                'Study monitoring (Prometheus, Grafana)',
+                                'Understand tracing (Jaeger, OpenTelemetry)',
+                                'Learn about alerting systems'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'DevOps Roadmap',
+                            url: 'https://roadmap.sh/devops',
+                            description: 'Detailed DevOps learning path'
+                        },
+                        {
+                            title: 'Kubernetes Documentation',
+                            url: 'https://kubernetes.io/docs/home/',
+                            description: 'Official Kubernetes docs'
+                        },
+                        {
+                            title: 'The Phoenix Project',
+                            url: 'https://www.amazon.com/Phoenix-Project-DevOps-Helping-Business/dp/0988262592',
+                            description: 'Must-read DevOps novel'
+                        },
+                        {
+                            title: 'DevOps Bootcamp',
+                            url: 'https://www.udemy.com/course/devopsbootcamp/',
+                            description: 'Hands-on DevOps training'
+                        }
+                    ]
+                },
+                'java': {
+                    title: 'Java Roadmap',
+                    steps: [
+                        {
+                            title: 'Java Fundamentals',
+                            items: [
+                                'Learn Java syntax and basic constructs',
+                                'Understand OOP principles',
+                                'Study Java collections framework',
+                                'Learn exception handling'
+                            ]
+                        },
+                        {
+                            title: 'Intermediate Java',
+                            items: [
+                                'Master multithreading and concurrency',
+                                'Learn about I/O and NIO',
+                                'Understand generics and annotations',
+                                'Study design patterns'
+                            ]
+                        },
+                        {
+                            title: 'Advanced Java',
+                            items: [
+                                'Learn about JVM internals',
+                                'Study performance optimization',
+                                'Understand reflection and bytecode manipulation',
+                                'Explore functional programming in Java'
+                            ]
+                        },
+                        {
+                            title: 'Frameworks and Tools',
+                            items: [
+                                'Learn Spring framework',
+                                'Study build tools (Maven, Gradle)',
+                                'Understand testing frameworks (JUnit, TestNG)',
+                                'Explore microservices with Spring Boot'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'Java Documentation',
+                            url: 'https://docs.oracle.com/en/java/',
+                            description: 'Official Java documentation'
+                        },
+                        {
+                            title: 'Baeldung',
+                            url: 'https://www.baeldung.com',
+                            description: 'Excellent Java tutorials'
+                        },
+                        {
+                            title: 'Effective Java by Joshua Bloch',
+                            url: 'https://www.amazon.com/Effective-Java-Joshua-Bloch/dp/0134685997',
+                            description: 'Must-read Java book'
+                        },
+                        {
+                            title: 'Spring Guides',
+                            url: 'https://spring.io/guides',
+                            description: 'Official Spring framework tutorials'
+                        }
+                    ]
+                },
+                'python': {
+                    title: 'Python Roadmap',
+                    steps: [
+                        {
+                            title: 'Python Basics',
+                            items: [
+                                'Learn Python syntax and basic constructs',
+                                'Understand data types and structures',
+                                'Study functions and modules',
+                                'Learn about file I/O'
+                            ]
+                        },
+                        {
+                            title: 'Intermediate Python',
+                            items: [
+                                'Master OOP in Python',
+                                'Learn about decorators and generators',
+                                'Understand exception handling',
+                                'Study Python standard library'
+                            ]
+                        },
+                        {
+                            title: 'Advanced Python',
+                            items: [
+                                'Learn about metaclasses',
+                                'Study concurrency and parallelism',
+                                'Understand Python internals',
+                                'Explore functional programming'
+                            ]
+                        },
+                        {
+                            title: 'Specializations',
+                            items: [
+                                'Web development (Django, Flask)',
+                                'Data science (NumPy, Pandas)',
+                                'Machine learning (scikit-learn, TensorFlow)',
+                                'Automation and scripting'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'Python Documentation',
+                            url: 'https://docs.python.org/3/',
+                            description: 'Official Python docs'
+                        },
+                        {
+                            title: 'Real Python',
+                            url: 'https://realpython.com',
+                            description: 'High-quality Python tutorials'
+                        },
+                        {
+                            title: 'Python Crash Course',
+                            url: 'https://www.amazon.com/Python-Crash-Course-2nd-Edition/dp/1593279280',
+                            description: 'Great book for beginners'
+                        },
+                        {
+                            title: 'PyPI',
+                            url: 'https://pypi.org',
+                            description: 'Python package repository'
+                        }
+                    ]
+                },
+                'data-science': {
+                    title: 'Data Science Roadmap',
+                    steps: [
+                        {
+                            title: 'Prerequisites',
+                            items: [
+                                'Strong foundation in statistics',
+                                'Proficiency in Python or R',
+                                'Basic understanding of databases',
+                                'Knowledge of linear algebra'
+                            ]
+                        },
+                        {
+                            title: 'Data Manipulation',
+                            items: [
+                                'Learn Pandas for data manipulation',
+                                'Understand NumPy for numerical computing',
+                                'Study data cleaning techniques',
+                                'Learn about feature engineering'
+                            ]
+                        },
+                        {
+                            title: 'Data Visualization',
+                            items: [
+                                'Master Matplotlib and Seaborn',
+                                'Learn interactive visualization (Plotly)',
+                                'Understand dashboarding tools (Tableau, Power BI)',
+                                'Study storytelling with data'
+                            ]
+                        },
+                        {
+                            title: 'Machine Learning',
+                            items: [
+                                'Learn scikit-learn for ML',
+                                'Understand model evaluation',
+                                'Study feature selection techniques',
+                                'Explore deep learning for data science'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'Kaggle Learn',
+                            url: 'https://www.kaggle.com/learn',
+                            description: 'Hands-on data science courses'
+                        },
+                        {
+                            title: 'Python Data Science Handbook',
+                            url: 'https://jakevdp.github.io/PythonDataScienceHandbook/',
+                            description: 'Free online book'
+                        },
+                        {
+                            title: 'Towards Data Science',
+                            url: 'https://towardsdatascience.com',
+                            description: 'Medium publication for data science'
+                        },
+                        {
+                            title: 'DataCamp',
+                            url: 'https://www.datacamp.com',
+                            description: 'Interactive data science courses'
+                        }
+                    ]
+                },
+                'cpp': {
+                    title: 'C++ Roadmap',
+                    steps: [
+                        {
+                            title: 'C++ Basics',
+                            items: [
+                                'Learn C++ syntax and basic constructs',
+                                'Understand OOP in C++',
+                                'Study pointers and references',
+                                'Learn about memory management'
+                            ]
+                        },
+                        {
+                            title: 'Standard Library',
+                            items: [
+                                'Master STL containers',
+                                'Learn algorithms in STL',
+                                'Understand iterators',
+                                'Study smart pointers'
+                            ]
+                        },
+                        {
+                            title: 'Advanced C++',
+                            items: [
+                                'Learn templates and metaprogramming',
+                                'Understand move semantics',
+                                'Study concurrency and multithreading',
+                                'Explore design patterns'
+                            ]
+                        },
+                        {
+                            title: 'Specializations',
+                            items: [
+                                'Game development (Unreal Engine)',
+                                'High-performance computing',
+                                'Embedded systems',
+                                'Systems programming'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'C++ Reference',
+                            url: 'https://en.cppreference.com/w/',
+                            description: 'Comprehensive C++ documentation'
+                        },
+                        {
+                            title: 'Learn C++',
+                            url: 'https://www.learncpp.com',
+                            description: 'Free tutorials for beginners'
+                        },
+                        {
+                            title: 'Effective C++ by Scott Meyers',
+                            url: 'https://www.amazon.com/Effective-Specific-Improve-Programs-Designs/dp/0321334876',
+                            description: 'Must-read C++ book'
+                        },
+                        {
+                            title: 'C++ Core Guidelines',
+                            url: 'https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines',
+                            description: 'Best practices for C++'
+                        }
+                    ]
+                },
+                'c': {
+                    title: 'C Programming Roadmap',
+                    steps: [
+                        {
+                            title: 'C Basics',
+                            items: [
+                                'Learn C syntax and basic constructs',
+                                'Understand pointers and memory management',
+                                'Study data types and operators',
+                                'Learn about control flow'
+                            ]
+                        },
+                        {
+                            title: 'Intermediate C',
+                            items: [
+                                'Master arrays and strings',
+                                'Learn about structures and unions',
+                                'Understand file I/O',
+                                'Study dynamic memory allocation'
+                            ]
+                        },
+                        {
+                            title: 'Advanced C',
+                            items: [
+                                'Learn about function pointers',
+                                'Understand preprocessor directives',
+                                'Study bit manipulation',
+                                'Explore multithreading'
+                            ]
+                        },
+                        {
+                            title: 'Specializations',
+                            items: [
+                                'Embedded systems programming',
+                                'Systems programming',
+                                'Game development',
+                                'Operating system development'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'C Programming Language (K&R)',
+                            url: 'https://www.amazon.com/Programming-Language-2nd-Brian-Kernighan/dp/0131103628',
+                            description: 'The classic C book'
+                        },
+                        {
+                            title: 'GCC Documentation',
+                            url: 'https://gcc.gnu.org/onlinedocs/',
+                            description: 'GNU Compiler Collection docs'
+                        },
+                        {
+                            title: 'Learn C',
+                            url: 'https://www.learn-c.org',
+                            description: 'Interactive C tutorial'
+                        },
+                        {
+                            title: 'C Standard Library Reference',
+                            url: 'https://en.cppreference.com/w/c',
+                            description: 'C standard library documentation'
+                        }
+                    ]
+                },
+                'csharp': {
+                    title: 'C# Roadmap',
+                    steps: [
+                        {
+                            title: 'C# Basics',
+                            items: [
+                                'Learn C# syntax and basic constructs',
+                                'Understand OOP principles',
+                                'Study collections and generics',
+                                'Learn about exception handling'
+                            ]
+                        },
+                        {
+                            title: '.NET Framework',
+                            items: [
+                                'Master LINQ',
+                                'Learn about async/await',
+                                'Understand delegates and events',
+                                'Study reflection and attributes'
+                            ]
+                        },
+                        {
+                            title: 'Advanced C#',
+                            items: [
+                                'Learn about memory management',
+                                'Understand multithreading',
+                                'Study design patterns',
+                                'Explore functional programming in C#'
+                            ]
+                        },
+                        {
+                            title: 'Specializations',
+                            items: [
+                                'Web development (ASP.NET)',
+                                'Game development (Unity)',
+                                'Desktop apps (WPF, WinForms)',
+                                'Mobile development (Xamarin)'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'Microsoft C# Docs',
+                            url: 'https://docs.microsoft.com/en-us/dotnet/csharp/',
+                            description: 'Official C# documentation'
+                        },
+                        {
+                            title: 'C# Yellow Book',
+                            url: 'https://www.robmiles.com/c-yellow-book/',
+                            description: 'Free C# book for beginners'
+                        },
+                        {
+                            title: 'C# in Depth',
+                            url: 'https://www.manning.com/books/c-sharp-in-depth-fourth-edition',
+                            description: 'Advanced C# concepts'
+                        },
+                        {
+                            title: 'DotNetPerls',
+                            url: 'https://www.dotnetperls.com/',
+                            description: 'C# examples and tutorials'
+                        }
+                    ]
+                },
+                'sql': {
+                    title: 'SQL Roadmap',
+                    steps: [
+                        {
+                            title: 'SQL Basics',
+                            items: [
+                                'Learn SELECT statements',
+                                'Understand filtering with WHERE',
+                                'Study sorting with ORDER BY',
+                                'Learn about joins (INNER, LEFT, RIGHT)'
+                            ]
+                        },
+                        {
+                            title: 'Intermediate SQL',
+                            items: [
+                                'Master aggregate functions',
+                                'Learn about GROUP BY and HAVING',
+                                'Understand subqueries',
+                                'Study set operations (UNION, INTERSECT)'
+                            ]
+                        },
+                        {
+                            title: 'Advanced SQL',
+                            items: [
+                                'Learn window functions',
+                                'Understand CTEs (Common Table Expressions)',
+                                'Study indexing strategies',
+                                'Explore stored procedures and functions'
+                            ]
+                        },
+                        {
+                            title: 'Database Administration',
+                            items: [
+                                'Learn about transactions and ACID',
+                                'Understand database normalization',
+                                'Study performance optimization',
+                                'Explore database security'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'SQLZoo',
+                            url: 'https://sqlzoo.net/',
+                            description: 'Interactive SQL tutorial'
+                        },
+                        {
+                            title: 'Mode SQL Tutorial',
+                            url: 'https://mode.com/sql-tutorial/',
+                            description: 'Comprehensive SQL guide'
+                        },
+                        {
+                            title: 'SQL Performance Explained',
+                            url: 'https://use-the-index-luke.com/',
+                            description: 'SQL performance optimization'
+                        },
+                        {
+                            title: 'DB-Fiddle',
+                            url: 'https://www.db-fiddle.com/',
+                            description: 'Online SQL playground'
+                        }
+                    ]
+                },
+                'os': {
+                    title: 'Operating Systems Roadmap',
+                    steps: [
+                        {
+                            title: 'Fundamentals',
+                            items: [
+                                'Understand computer architecture',
+                                'Learn about processes and threads',
+                                'Study memory hierarchy',
+                                'Learn about I/O systems'
+                            ]
+                        },
+                        {
+                            title: 'Process Management',
+                            items: [
+                                'Understand scheduling algorithms',
+                                'Learn about process synchronization',
+                                'Study inter-process communication',
+                                'Understand deadlocks'
+                            ]
+                        },
+                        {
+                            title: 'Memory Management',
+                            items: [
+                                'Learn about paging and segmentation',
+                                'Understand virtual memory',
+                                'Study page replacement algorithms',
+                                'Learn about memory allocation'
+                            ]
+                        },
+                        {
+                            title: 'File Systems',
+                            items: [
+                                'Understand file system implementation',
+                                'Learn about storage devices',
+                                'Study RAID levels',
+                                'Understand distributed file systems'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'Operating Systems: Three Easy Pieces',
+                            url: 'https://pages.cs.wisc.edu/~remzi/OSTEP/',
+                            description: 'Free OS textbook'
+                        },
+                        {
+                            title: 'Linux From Scratch',
+                            url: 'https://www.linuxfromscratch.org/',
+                            description: 'Build your own Linux system'
+                        },
+                        {
+                            title: 'OSDev Wiki',
+                            url: 'https://wiki.osdev.org/Main_Page',
+                            description: 'Operating system development'
+                        },
+                        {
+                            title: 'MIT 6.S081',
+                            url: 'https://pdos.csail.mit.edu/6.828/2021/schedule.html',
+                            description: 'Operating System Engineering course'
+                        }
+                    ]
+                },
+                'ui-ux': {
+                    title: 'UI/UX Design Roadmap',
+                    steps: [
+                        {
+                            title: 'Design Fundamentals',
+                            items: [
+                                'Learn color theory',
+                                'Understand typography',
+                                'Study layout and composition',
+                                'Learn about visual hierarchy'
+                            ]
+                        },
+                        {
+                            title: 'User Research',
+                            items: [
+                                'Learn about user personas',
+                                'Understand user journeys',
+                                'Study usability testing',
+                                'Learn about accessibility'
+                            ]
+                        },
+                        {
+                            title: 'Design Tools',
+                            items: [
+                                'Master Figma or Sketch',
+                                'Learn Adobe XD',
+                                'Understand prototyping tools',
+                                'Study design systems'
+                            ]
+                        },
+                        {
+                            title: 'Interaction Design',
+                            items: [
+                                'Learn about microinteractions',
+                                'Understand responsive design',
+                                'Study animation principles',
+                                'Explore AR/VR interfaces'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'NN/g Articles',
+                            url: 'https://www.nngroup.com/articles/',
+                            description: 'UX research and best practices'
+                        },
+                        {
+                            title: 'Laws of UX',
+                            url: 'https://lawsofux.com/',
+                            description: 'Collection of UX principles'
+                        },
+                        {
+                            title: 'Refactoring UI',
+                            url: 'https://www.refactoringui.com/',
+                            description: 'Practical design advice'
+                        },
+                        {
+                            title: 'UX Collective',
+                            url: 'https://uxdesign.cc/',
+                            description: 'Medium publication for UX'
+                        }
+                    ]
+                },
+                'graphics': {
+                    title: 'Graphics Design Roadmap',
+                    steps: [
+                        {
+                            title: 'Design Fundamentals',
+                            items: [
+                                'Learn color theory',
+                                'Understand composition',
+                                'Study typography',
+                                'Learn about visual hierarchy'
+                            ]
+                        },
+                        {
+                            title: 'Design Tools',
+                            items: [
+                                'Master Adobe Photoshop',
+                                'Learn Adobe Illustrator',
+                                'Understand InDesign',
+                                'Study Figma for digital design'
+                            ]
+                        },
+                        {
+                            title: 'Specializations',
+                            items: [
+                                'Logo design and branding',
+                                'Print design (posters, brochures)',
+                                'Digital illustration',
+                                'Motion graphics'
+                            ]
+                        },
+                        {
+                            title: 'Professional Practice',
+                            items: [
+                                'Learn about client communication',
+                                'Understand design briefs',
+                                'Study portfolio development',
+                                'Explore freelancing and agencies'
+                            ]
+                        }
+                    ],
+                    resources: [
+                        {
+                            title: 'Canva Design School',
+                            url: 'https://www.canva.com/learn/',
+                            description: 'Design tutorials and inspiration'
+                        },
+                        {
+                            title: 'Adobe Tutorials',
+                            url: 'https://helpx.adobe.com/support.html',
+                            description: 'Official Adobe software tutorials'
+                        },
+                        {
+                            title: 'Behance',
+                            url: 'https://www.behance.net/',
+                            description: 'Design portfolio showcase'
+                        },
+                        {
+                            title: 'Design Matters',
+                            url: 'https://designmatters.io/',
+                            description: 'Design podcast and resources'
+                        }
+                    ]
+                }
+            };
+
+            // Show roadmap when a tech card is clicked
+            techCards.forEach(card => {
+                const button = card.querySelector('.view-roadmap');
+                button.addEventListener('click', () => {
+                    const tech = card.getAttribute('data-tech');
+                    showRoadmap(tech);
+                });
+            });
+
+            // Back button functionality
+            backBtn.addEventListener('click', () => {
+                techGrid.style.display = 'grid';
+                roadmapContainer.style.display = 'none';
+                searchInput.value = '';
+                filterTechCards();
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', filterTechCards);
+
+            function filterTechCards() {
+                const searchTerm = searchInput.value.toLowerCase();
+                let hasResults = false;
+
+                techCards.forEach(card => {
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const description = card.querySelector('p').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        hasResults = true;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                if (hasResults) {
+                    noResults.style.display = 'none';
+                } else {
+                    noResults.style.display = 'block';
+                }
+            }
+
+            function showRoadmap(tech) {
+                techGrid.style.display = 'none';
+                roadmapContainer.style.display = 'block';
+                
+                const roadmap = roadmaps[tech];
+                roadmapTitle.textContent = roadmap.title;
+                
+                // Clear previous steps and resources
+                roadmapSteps.innerHTML = '';
+                resourcesContainer.innerHTML = '<h3>Recommended Resources</h3>';
+                
+                // Add steps
+                roadmap.steps.forEach(step => {
+                    const stepElement = document.createElement('div');
+                    stepElement.className = 'step';
+                    
+                    const stepTitle = document.createElement('h3');
+                    stepTitle.textContent = step.title;
+                    
+                    const stepList = document.createElement('ul');
+                    step.items.forEach(item => {
+                        const li = document.createElement('li');
+                        li.textContent = item;
+                        stepList.appendChild(li);
+                    });
+                    
+                    stepElement.appendChild(stepTitle);
+                    stepElement.appendChild(stepList);
+                    roadmapSteps.appendChild(stepElement);
+                });
+                
+                // Add resources
+                roadmap.resources.forEach(resource => {
+                    const resourceElement = document.createElement('div');
+                    resourceElement.className = 'resource-item';
+                    
+                    const icon = document.createElement('div');
+                    icon.className = 'resource-icon';
+                    icon.innerHTML = '<i class="fas fa-link"></i>';
+                    
+                    const info = document.createElement('div');
+                    info.className = 'resource-info';
+                    
+                    const title = document.createElement('h4');
+                    title.textContent = resource.title;
+                    
+                    const link = document.createElement('a');
+                    link.href = resource.url;
+                    link.target = '_blank';
+                    link.textContent = resource.description;
+                    
+                    info.appendChild(title);
+                    info.appendChild(link);
+                    
+                    resourceElement.appendChild(icon);
+                    resourceElement.appendChild(info);
+                    
+                    resourcesContainer.appendChild(resourceElement);
+                });
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
